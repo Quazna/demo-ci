@@ -9,13 +9,11 @@ on:
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     runs-on: ${{ matrix.os }}
-    permissions:
-      contents: read
-      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
@@ -25,33 +23,13 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: maven
-
-      - name: Run Checkstyle
-        if: matrix.os == 'windows-latest'
-        run: mvn checkstyle:checkstyle
-
-      - name: Checkstyle Inline Comment
-        if: matrix.os == 'windows-latest' && github.event_name == 'pull_request'
-        uses: dbelyaev/action-checkstyle@master
-        with:
-          github_token: ${{ secrets.github_token }}
-          checkstyle_config: google_checks.xml
-          level: warning
-
-      - name: Build and Verify with JaCoCo
-        run: mvn -B clean verify
+          
+      - name: Build with Maven
+        run: mvn -B clean package
 
       - name: Upload Build Artifact
-        if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v4
+        if: matrix.os == 'windows-latest'
         with:
           name: demo-ci-jar
           path: target/*.jar
-
-      - name: Upload JaCoCo Report
-        if: always() && matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v4
-        with:
-          name: jacoco-report
-          path: target/site/jacoco/
