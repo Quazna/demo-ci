@@ -54,8 +54,6 @@ public final class App {
     }
 
     public static String getPath(String folder, String file) {
-        // Cố tình dùng dấu gạch chéo ngược (Windows style)
-        return folder + "\\" + file;
+        return new java.io.File(folder, file).getPath();
     }
-
 }

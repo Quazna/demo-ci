@@ -16,8 +16,8 @@ public class AppTest {
     public void testPath() {
         String folder = "data";
         String file = "test.txt";
-        // Test này sẽ PASS trên Windows nhưng FAIL trên Ubuntu/macOS
+        // Trên Windows: getPath trả về "data\test.txt" -> PASS
+        // Trên Linux/Mac: getPath trả về "data/test.txt" -> FAIL (vì so sánh với "data\test.txt")
         assertEquals("data\\test.txt", App.getPath(folder, file));
     }
-
 }
