@@ -52,4 +52,10 @@ public final class App {
     public static int add(final int a, final int b) {
         return a + b;
     }
+
+    public static String getPath(String folder, String file) {
+        // Cố tình dùng dấu gạch chéo ngược (Windows style)
+        return folder + "\\" + file;
+    }
+
 }

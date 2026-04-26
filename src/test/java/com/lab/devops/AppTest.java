@@ -11,4 +11,13 @@ public class AppTest {
     public void testAddNegative() {
         assertEquals(-5, App.add(5, -10));
     }
+
+    @Test
+    public void testPath() {
+        String folder = "data";
+        String file = "test.txt";
+        // Test này sẽ PASS trên Windows nhưng FAIL trên Ubuntu/macOS
+        assertEquals("data\\test.txt", App.getPath(folder, file));
+    }
+
 }
