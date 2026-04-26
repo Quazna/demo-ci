@@ -30,11 +30,11 @@ jobs:
 
       - name: Run Checkstyle
         # Chỉ chạy checkstyle trên ubuntu để tránh bot spam comment 3 lần trên PR
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'windows-latest'
         run: mvn checkstyle:checkstyle
 
       - name: Checkstyle Inline Comment
-        if: matrix.os == 'ubuntu-latest' && github.event_name == 'pull_request'
+        if: matrix.os == 'windows-latest' && github.event_name == 'pull_request'
         uses: dbelyaev/action-checkstyle@master
         with:
           github_token: ${{ secrets.github_token }}
@@ -52,7 +52,7 @@ jobs:
           path: target/*.jar
 
       - name: Upload JaCoCo Report
-        if: always() && matrix.os == 'ubuntu-latest'
+        if: always() && matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-report

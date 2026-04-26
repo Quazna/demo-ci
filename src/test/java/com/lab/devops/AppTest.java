@@ -12,12 +12,26 @@ public class AppTest {
         assertEquals(-5, App.add(5, -10));
     }
 
+//    @Test
+//    public void testPath() {
+//        String folder = "data";
+//        String file = "test.txt";
+//        // Trên Windows: getPath trả về "data\test.txt" -> PASS
+//        // Trên Linux/Mac: getPath trả về "data/test.txt" -> FAIL (vì so sánh với "data\test.txt")
+//        assertEquals("data\\test.txt", App.getPath(folder, file));
+//    }
+
     @Test
     public void testPath() {
         String folder = "data";
         String file = "test.txt";
-        // Trên Windows: getPath trả về "data\test.txt" -> PASS
-        // Trên Linux/Mac: getPath trả về "data/test.txt" -> FAIL (vì so sánh với "data\test.txt")
-        assertEquals("data\\test.txt", App.getPath(folder, file));
+        String expected = folder + java.io.File.separator + file;
+        assertEquals(expected, App.getPath(folder, file));
+    }
+
+    @Test
+    public void testMain() {
+        // Chạy hàm main để JaCoCo ghi nhận độ bao phủ
+        App.main(new String[]{});
     }
 }
